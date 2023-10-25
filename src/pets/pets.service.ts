@@ -1,5 +1,4 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { v4 as uuidv4 } from 'uuid';
 import { CreatePetDto } from './dto/create-pet.dto';
 import { UpdatePetDto } from './dto/update-pet.dto';
 import { Pet } from './entities/pet.entity';
@@ -8,18 +7,14 @@ import { AnimalType } from './enums/AnimalType.enum';
 @Injectable()
 export class PetsService {
   private pets: Pet[] = [
-    { id: '1', name: 'Rex', age: 8, type: AnimalType.Cat },
-    { id: '2', name: 'Woof', age: 2, type: AnimalType.Dog },
-    { id: '3', name: 'Bandit', age: 43, type: AnimalType.Dog },
-    { id: '4', name: 'Lydia', age: 8, type: AnimalType.Cat },
+    new Pet({ name: 'Rex', age: 8, type: AnimalType.Cat }),
+    new Pet({ name: 'Woof', age: 2, type: AnimalType.Dog }),
+    new Pet({ name: 'Bandit', age: 43, type: AnimalType.Dog }),
+    new Pet({ name: 'Lydia', age: 8, type: AnimalType.Cat }),
   ];
 
   create(createPetDto: CreatePetDto): Pet {
-    const id = uuidv4(); // TODO-- consider whether UUID should have it's own type
-    const newPet: Pet = {
-      id,
-      ...createPetDto,
-    };
+    const newPet = new Pet(createPetDto);
     this.pets.push(newPet);
     return newPet;
   }
