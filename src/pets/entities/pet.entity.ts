@@ -13,15 +13,15 @@ export class Pet {
   maxHealth: number;
 
   private static readonly DOG_BASE_STATS = {
-    strength: 10,
+    strength: 20,
     agility: 10,
-    armorClass: 10,
-    maxHealth: 10,
+    armorClass: 15,
+    maxHealth: 15,
   };
 
   private static readonly CAT_BASE_STATS = {
     strength: 10,
-    agility: 10,
+    agility: 30,
     armorClass: 10,
     maxHealth: 10,
   };
