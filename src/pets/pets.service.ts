@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { v4 as uuidv4 } from 'uuid';
 import { CreatePetDto } from './dto/create-pet.dto';
 import { UpdatePetDto } from './dto/update-pet.dto';
@@ -29,7 +29,7 @@ export class PetsService {
   findOne(id: string): Pet {
     const matchedPet = this.pets.find((pet) => pet.id === id);
     if (!matchedPet) {
-      throw new Error(`Pet with id ${id} not found`);
+      throw new NotFoundException(`Pet with id ${id} not found`);
     }
     return matchedPet;
   }
@@ -37,7 +37,7 @@ export class PetsService {
   update(id: string, updatePetDto: UpdatePetDto): Pet {
     const matchedPet = this.pets.find((pet) => pet.id === id);
     if (!matchedPet) {
-      throw new Error(`Pet with id ${id} not found`);
+      throw new NotFoundException(`Pet with id ${id} not found`);
     }
     const updatedPet = {
       ...matchedPet,
@@ -49,6 +49,8 @@ export class PetsService {
   }
 
   remove(id: string): void {
+    // TODO-- acts as a guard to throw an error if pet doesn't exist; to be re-architected when connecting to a real db
+    this.findOne(id);
     // TODO-- this is not performant, but is just temp code until a real db is wired up
     this.pets = this.pets.filter((pet) => pet.id !== id);
   }
