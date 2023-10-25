@@ -1,5 +1,5 @@
 export class Pet {
-  id: number;
+  id: string; // UUID
   name: string;
   age: number;
   breed: string;
