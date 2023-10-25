@@ -12,28 +12,44 @@ export class PetsService {
     { id: '3', name: 'Rabbit', age: 1, breed: 'Angora' },
   ];
 
-  create(createPetDto: CreatePetDto) {
+  create(createPetDto: CreatePetDto): Pet {
     const id = uuidv4(); // TODO-- consider whether UUID should have it's own type
     const newPet: Pet = {
       id,
       ...createPetDto,
     };
     this.pets.push(newPet);
+    return newPet;
   }
 
-  findAll() {
+  findAll(): Pet[] {
     return this.pets;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} pet`;
+  findOne(id: string): Pet {
+    const matchedPet = this.pets.find((pet) => pet.id === id);
+    if (!matchedPet) {
+      throw new Error(`Pet with id ${id} not found`);
+    }
+    return matchedPet;
   }
 
-  update(id: number, updatePetDto: UpdatePetDto) {
-    return `This action updates a #${id} pet`;
+  update(id: string, updatePetDto: UpdatePetDto): Pet {
+    const matchedPet = this.pets.find((pet) => pet.id === id);
+    if (!matchedPet) {
+      throw new Error(`Pet with id ${id} not found`);
+    }
+    const updatedPet = {
+      ...matchedPet,
+      ...updatePetDto,
+    };
+    // TODO-- this is not performant, but is just temp code until a real db is wired up
+    this.pets = this.pets.map((pet) => (pet.id === id ? updatedPet : pet));
+    return updatedPet;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} pet`;
+  remove(id: string): void {
+    // TODO-- this is not performant, but is just temp code until a real db is wired up
+    this.pets = this.pets.filter((pet) => pet.id !== id);
   }
 }
