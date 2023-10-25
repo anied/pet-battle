@@ -1,6 +1,12 @@
+import { AnimalType } from '../enums/AnimalType.enum';
+
 export class Pet {
   id: string; // UUID
   name: string;
   age: number;
-  breed: string;
+  type: AnimalType;
+  strength: number;
+  agility: number;
+  armorClass: number;
+  maxHealth: number;
 }

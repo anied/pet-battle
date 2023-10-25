@@ -3,13 +3,15 @@ import { v4 as uuidv4 } from 'uuid';
 import { CreatePetDto } from './dto/create-pet.dto';
 import { UpdatePetDto } from './dto/update-pet.dto';
 import { Pet } from './entities/pet.entity';
+import { AnimalType } from './enums/AnimalType.enum';
 
 @Injectable()
 export class PetsService {
   private pets: Pet[] = [
-    { id: '1', name: 'Cat', age: 2, breed: 'Bengal' },
-    { id: '2', name: 'Dog', age: 3, breed: 'Labrador' },
-    { id: '3', name: 'Rabbit', age: 1, breed: 'Angora' },
+    { id: '1', name: 'Rex', age: 8, type: AnimalType.Cat },
+    { id: '2', name: 'Woof', age: 2, type: AnimalType.Dog },
+    { id: '3', name: 'Bandit', age: 43, type: AnimalType.Dog },
+    { id: '4', name: 'Lydia', age: 8, type: AnimalType.Cat },
   ];
 
   create(createPetDto: CreatePetDto): Pet {
