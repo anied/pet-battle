@@ -7,6 +7,8 @@ import {
   Param,
   Delete,
   HttpCode,
+  UsePipes,
+  ValidationPipe,
 } from '@nestjs/common';
 import { PetsService } from './pets.service';
 import { CreatePetDto } from './dto/create-pet.dto';
@@ -17,6 +19,7 @@ export class PetsController {
   constructor(private readonly petsService: PetsService) {}
 
   @Post()
+  @UsePipes(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }))
   create(@Body() createPetDto: CreatePetDto) {
     return this.petsService.create(createPetDto);
   }
@@ -32,6 +35,7 @@ export class PetsController {
   }
 
   @Patch(':id')
+  @UsePipes(new ValidationPipe({ whitelist: true, transform: true }))
   update(@Param('id') id: string, @Body() updatePetDto: UpdatePetDto) {
     return this.petsService.update(id, updatePetDto);
   }
