@@ -1,0 +1,13 @@
+// cSpell Settings
+{
+  "version": "0.2",
+  "language": "en",
+  "words": [
+    "hstore",
+    "nestjs",
+    "petbattle",
+    "PGUSER",
+    "uuidv"
+  ],
+  "flagWords": []
+}

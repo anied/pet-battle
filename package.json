@@ -18,7 +18,8 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "docker:run": "./shell/run_docker.sh"
+    "docker:run": "./shell/run_docker.sh",
+    "db:create_petbattle_db": "source ./env/pg_connection.env && node ./db/create_petbattle_db.js"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",
@@ -27,8 +28,11 @@
     "@nestjs/platform-express": "^10.0.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
+    "pg": "^8.11.3",
+    "pg-hstore": "^2.3.4",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.1",
+    "sequelize": "^6.33.0",
     "uuid": "^9.0.1"
   },
   "devDependencies": {
