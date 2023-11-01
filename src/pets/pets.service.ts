@@ -21,7 +21,7 @@ export class PetsService {
   ];
 
   async createTableIfNeeded(): Promise<void> {
-    await this.petRepository.query(`CREATE TABLE IF NOT EXISTS pets (
+    await this.petRepository.query(`CREATE TABLE IF NOT EXISTS pet (
       id uuid PRIMARY KEY,
       name varchar(255) NOT NULL,
       age int NOT NULL,
