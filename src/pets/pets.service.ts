@@ -1,4 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreatePetDto } from './dto/create-pet.dto';
 import { UpdatePetDto } from './dto/update-pet.dto';
 import { Pet } from './entities/pet.entity';
@@ -6,12 +8,30 @@ import { AnimalType } from './enums/AnimalType.enum';
 
 @Injectable()
 export class PetsService {
+  constructor(
+    @InjectRepository(Pet)
+    private readonly petRepository: Repository<Pet>,
+  ) {}
+
   private pets: Pet[] = [
     new Pet({ name: 'Rex', age: 8, type: AnimalType.Cat }),
     new Pet({ name: 'Woof', age: 2, type: AnimalType.Dog }),
     new Pet({ name: 'Bandit', age: 43, type: AnimalType.Dog }),
     new Pet({ name: 'Lydia', age: 8, type: AnimalType.Cat }),
   ];
+
+  async createTableIfNeeded(): Promise<void> {
+    await this.petRepository.query(`CREATE TABLE IF NOT EXISTS pets (
+      id uuid PRIMARY KEY,
+      name varchar(255) NOT NULL,
+      age int NOT NULL,
+      type varchar(255) NOT NULL,
+      strength int NOT NULL,
+      agility int NOT NULL,
+      armorClass int NOT NULL,
+      maxHealth int NOT NULL
+    );`);
+  }
 
   create(createPetDto: CreatePetDto): Pet {
     const newPet = new Pet(createPetDto);

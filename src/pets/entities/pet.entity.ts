@@ -1,15 +1,32 @@
+import { Entity, Column, PrimaryColumn } from 'typeorm';
 import { v4 as uuidv4 } from 'uuid';
 import { CreatePetDto } from '../dto/create-pet.dto';
 import { AnimalType } from '../enums/AnimalType.enum';
 
+@Entity()
 export class Pet {
+  @PrimaryColumn({ type: 'uuid' })
   id: string; // UUID
+
+  @Column({ type: 'varchar', length: 255 })
   name: string;
+
+  @Column({ type: 'int' })
   age: number;
+
+  @Column({ type: 'enum', enum: AnimalType })
   type: AnimalType;
+
+  @Column({ type: 'int' })
   strength: number;
+
+  @Column({ type: 'int' })
   agility: number;
+
+  @Column({ type: 'int' })
   armorClass: number;
+
+  @Column({ type: 'int' })
   maxHealth: number;
 
   private static readonly DOG_BASE_STATS = {

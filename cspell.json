@@ -8,6 +8,8 @@
     "nestjs",
     "petbattle",
     "PGUSER",
+    "techdebt",
+    "typeorm",
     "uuidv"
   ],
   "flagWords": []
