@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
+// This file is intended to be run as a standalone script, not as part of the app.
 const pgAdmin = require('../db/postgres_admin');
 
 // Based on a function provided by ChatGPT
