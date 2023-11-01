@@ -19,7 +19,8 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "docker:run": "./shell/run_docker.sh",
-    "db:create_petbattle_db": "node -r dotenv/config ./db_scripts/create_petbattle_db.js dotenv_config_path=./env/pg-connection.env dotenv_config_debug=true"
+    "db:create_petbattle_db": "node -r dotenv/config ./db_scripts/create_petbattle_db.js dotenv_config_path=./env/pg-connection.env dotenv_config_debug=true",
+    "db:inject_mock_pet_data": "node -r dotenv/config ./db_scripts/inject_mock_pet_data.js dotenv_config_path=./env/pg-connection.env dotenv_config_debug=true"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",
