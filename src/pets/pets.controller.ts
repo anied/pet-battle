@@ -7,8 +7,6 @@ import {
   Param,
   Delete,
   HttpCode,
-  UsePipes,
-  ValidationPipe,
   UseFilters,
 } from '@nestjs/common';
 import { PetsService } from './pets.service';
@@ -22,7 +20,6 @@ export class PetsController {
   constructor(private readonly petsService: PetsService) {}
 
   @Post()
-  // @UsePipes(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }))
   create(@Body() createPetDto: CreatePetDto) {
     return this.petsService.create(createPetDto);
   }
@@ -34,13 +31,16 @@ export class PetsController {
 
   @Get(':id')
   @UseFilters(PetNotFoundExceptionFilter)
-  findOne(@Param() params: FindOneParams) {
-    return this.petsService.findOne(params.id);
+  findOne(@Param() { id }: FindOneParams) {
+    return this.petsService.findOne(id);
   }
 
   @Patch(':id')
-  @UsePipes(new ValidationPipe({ whitelist: true, transform: true }))
-  update(@Param('id') id: string, @Body() updatePetDto: UpdatePetDto) {
+  @UseFilters(PetNotFoundExceptionFilter)
+  update(@Param() { id }: FindOneParams, @Body() updatePetDto: UpdatePetDto) {
+    // Full Pet entity properties not exposed because they would be protected in the full implementation, and only
+    // allowed to be updated through specific API endpoints that checked the entity state to verify the update was
+    // valid.
     return this.petsService.update(id, updatePetDto);
   }
 
