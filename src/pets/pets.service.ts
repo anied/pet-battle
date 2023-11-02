@@ -28,8 +28,8 @@ export class PetsService {
       type varchar(255) NOT NULL,
       strength int NOT NULL,
       agility int NOT NULL,
-      armorClass int NOT NULL,
-      maxHealth int NOT NULL
+      armor_class int NOT NULL,
+      max_health int NOT NULL
     );`);
   }
 

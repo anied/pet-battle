@@ -5,28 +5,28 @@ import { AnimalType } from '../enums/AnimalType.enum';
 
 @Entity()
 export class Pet {
-  @PrimaryColumn({ type: 'uuid' })
+  @PrimaryColumn({ name: 'id', type: 'uuid' })
   id: string; // UUID
 
-  @Column({ type: 'varchar', length: 255 })
+  @Column({ name: 'name', type: 'varchar', length: 255 })
   name: string;
 
-  @Column({ type: 'int' })
+  @Column({ name: 'age', type: 'int' })
   age: number;
 
-  @Column({ type: 'enum', enum: AnimalType })
+  @Column({ name: 'type', type: 'enum', enum: AnimalType })
   type: AnimalType;
 
-  @Column({ type: 'int' })
+  @Column({ name: 'strength', type: 'int' })
   strength: number;
 
-  @Column({ type: 'int' })
+  @Column({ name: 'agility', type: 'int' })
   agility: number;
 
-  @Column({ type: 'int' })
+  @Column({ name: 'armor_class', type: 'int' })
   armorClass: number;
 
-  @Column({ type: 'int' })
+  @Column({ name: 'max_health', type: 'int' })
   maxHealth: number;
 
   private static readonly DOG_BASE_STATS = {
