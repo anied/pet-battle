@@ -43,12 +43,14 @@ export class PetsService {
     return this.petRepository.find();
   }
 
-  findOne(id: string): Pet {
-    const matchedPet = this.pets.find((pet) => pet.id === id);
-    if (!matchedPet) {
-      throw new NotFoundException(`Pet with id ${id} not found`);
-    }
-    return matchedPet;
+  findOne(id: string): Promise<Pet> {
+    // const matchedPet = this.pets.find((pet) => pet.id === id);
+    // if (!matchedPet) {
+    //   throw new NotFoundException(`Pet with id ${id} not found`);
+    // }
+    // return matchedPet;
+
+    return this.petRepository.findOneOrFail({ where: { id } });
   }
 
   update(id: string, updatePetDto: UpdatePetDto): Pet {
