@@ -15,13 +15,14 @@ import { PetsService } from './pets.service';
 import { CreatePetDto } from './dto/create-pet.dto';
 import { UpdatePetDto } from './dto/update-pet.dto';
 import { PetNotFoundExceptionFilter } from './filters/pet-not-found-exception-filter/pet-not-found-exception-filter.filter';
+import { FindOneParams } from 'src/type-classes/find-one-params';
 
 @Controller('pets')
 export class PetsController {
   constructor(private readonly petsService: PetsService) {}
 
   @Post()
-  @UsePipes(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }))
+  // @UsePipes(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }))
   create(@Body() createPetDto: CreatePetDto) {
     return this.petsService.create(createPetDto);
   }
@@ -33,8 +34,8 @@ export class PetsController {
 
   @Get(':id')
   @UseFilters(PetNotFoundExceptionFilter)
-  findOne(@Param('id') id: string) {
-    return this.petsService.findOne(id);
+  findOne(@Param() params: FindOneParams) {
+    return this.petsService.findOne(params.id);
   }
 
   @Patch(':id')
