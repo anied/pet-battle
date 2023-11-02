@@ -56,7 +56,13 @@ export class PetsService {
     return this.petRepository.save(updatedPet);
   }
 
-  remove(id: string): void {
-    console.log('removes pet with id', id);
+  async remove(id: string): Promise<void> {
+    const pet = await this.petRepository.findOne({ where: { id } });
+
+    if (!pet) {
+      throw new PetNotFoundException(id);
+    }
+
+    await this.petRepository.delete(id);
   }
 }
