@@ -5,6 +5,7 @@ import { CreatePetDto } from './dto/create-pet.dto';
 import { UpdatePetDto } from './dto/update-pet.dto';
 import { Pet } from './entities/pet.entity';
 import { AnimalType } from './enums/AnimalType.enum';
+import { PetNotFoundException } from './exceptions/PetNotFound.exception';
 
 @Injectable()
 export class PetsService {
@@ -43,14 +44,12 @@ export class PetsService {
     return this.petRepository.find();
   }
 
-  findOne(id: string): Promise<Pet> {
-    // const matchedPet = this.pets.find((pet) => pet.id === id);
-    // if (!matchedPet) {
-    //   throw new NotFoundException(`Pet with id ${id} not found`);
-    // }
-    // return matchedPet;
-
-    return this.petRepository.findOneOrFail({ where: { id } });
+  async findOne(id: string): Promise<Pet> {
+    const pet = await this.petRepository.findOne({ where: { id } });
+    if (!pet) {
+      throw new PetNotFoundException(id);
+    }
+    return pet;
   }
 
   update(id: string, updatePetDto: UpdatePetDto): Pet {

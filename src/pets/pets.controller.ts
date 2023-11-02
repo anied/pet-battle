@@ -9,10 +9,12 @@ import {
   HttpCode,
   UsePipes,
   ValidationPipe,
+  UseFilters,
 } from '@nestjs/common';
 import { PetsService } from './pets.service';
 import { CreatePetDto } from './dto/create-pet.dto';
 import { UpdatePetDto } from './dto/update-pet.dto';
+import { PetNotFoundExceptionFilter } from './filters/pet-not-found-exception-filter/pet-not-found-exception-filter.filter';
 
 @Controller('pets')
 export class PetsController {
@@ -30,6 +32,7 @@ export class PetsController {
   }
 
   @Get(':id')
+  @UseFilters(PetNotFoundExceptionFilter)
   findOne(@Param('id') id: string) {
     return this.petsService.findOne(id);
   }
