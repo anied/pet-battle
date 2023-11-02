@@ -54,7 +54,15 @@ export class Pet {
     }
   }
 
-  constructor({ name, age, type }: CreatePetDto) {
+  constructor(
+    { name, age, type }: CreatePetDto = {
+      // ? Dummy defaults because apparently TypeORM creates a dummy entity when instantiating
+      name: '',
+      age: 0,
+      type: AnimalType.Dog,
+    },
+  ) {
+    // debugger;
     this.id = uuidv4(); // TODO-- consider whether UUID should have it's own type;
     this.name = name;
     this.age = age;

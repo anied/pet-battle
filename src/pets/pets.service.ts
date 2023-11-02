@@ -39,8 +39,8 @@ export class PetsService {
     return newPet;
   }
 
-  findAll(): Pet[] {
-    return this.pets;
+  findAll(): Promise<Pet[]> {
+    return this.petRepository.find();
   }
 
   findOne(id: string): Pet {
