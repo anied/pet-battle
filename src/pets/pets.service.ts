@@ -34,9 +34,9 @@ export class PetsService {
     );`);
   }
 
-  create(createPetDto: CreatePetDto): Pet {
+  async create(createPetDto: CreatePetDto): Promise<Pet> {
     const newPet = new Pet(createPetDto);
-    this.pets.push(newPet);
+    await this.petRepository.save(newPet);
     return newPet;
   }
 
