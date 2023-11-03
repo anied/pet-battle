@@ -1,4 +1,4 @@
-import { OmitType, PartialType } from '@nestjs/mapped-types';
-import { Pet } from '../entities/pet.entity';
+import { PartialType } from '@nestjs/mapped-types';
+import { CreatePetDto } from './create-pet.dto';
 
-export class UpdatePetDto extends PartialType(OmitType(Pet, ['id'] as const)) {}
+export class UpdatePetDto extends PartialType(CreatePetDto) {}
