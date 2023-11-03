@@ -4,6 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { PetsModule } from './pets/pets.module';
+import { Pet } from './pets/entities/pet.entity';
 
 const PG_DOMAIN = process.env.PG_DOMAIN;
 const PG_PORT = process.env.PG_PORT ? parseInt(process.env.PG_PORT, 10) : NaN;
@@ -20,8 +21,8 @@ const APP_DB_NAME = process.env.APP_DB_NAME;
       username: PG_USER,
       password: POSTGRES_PASSWORD,
       database: APP_DB_NAME,
-      entities: [],
-      synchronize: true,
+      entities: [Pet],
+      // synchronize: true,
     }),
     PetsModule,
   ],

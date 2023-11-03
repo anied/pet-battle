@@ -1,8 +1,9 @@
 import { AnimalType } from '../enums/AnimalType.enum';
-import { IsEnum, IsNumber, IsString } from 'class-validator';
+import { IsEnum, IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 export class CreatePetDto {
   @IsString()
+  @IsNotEmpty()
   name: string;
 
   @IsNumber()
